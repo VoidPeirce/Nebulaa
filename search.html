@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nebula – Search Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --color-bg-light: #f8fafc;
+      --color-bg-dark: #232129;
+      --color-bg-green: #131e15;
+      --color-bg-blue: #17233a;
+      --color-bg-purple: #2c2537;
+      --color-logo-light: #333;
+      --color-logo-dark: #cfcfcf;
+      --color-logo-green: #2d6a4f;
+      --color-logo-blue: #2a4d8d;
+      --color-logo-purple: #a084ca;
+      --body-font: 'Segoe UI', 'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--body-font);
+      transition: background 0.2s;
+      min-height: 100vh;
+    }
+
+    /* Themes */
+    .theme-light { background: var(--color-bg-light); color: #000; }
+    .theme-dark { background: var(--color-bg-dark); color: #fff; }
+    .theme-green { background: var(--color-bg-green); color: #fff; }
+    .theme-blue { background: var(--color-bg-blue); color: #fff; }
+    .theme-purple { background: var(--color-bg-purple); color: #fff; }
+
+    /* Logo */
+    .nebula-logo {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .theme-light .nebula-logo { color: var(--color-logo-light); }
+    .theme-dark .nebula-logo { color: var(--color-logo-dark); }
+    .theme-green .nebula-logo { color: var(--color-logo-green); }
+    .theme-blue .nebula-logo { color: var(--color-logo-blue); }
+    .theme-purple .nebula-logo { color: var(--color-logo-purple); }
+
+    /* Search bar */
+    .search-bar {
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      background: #fff;
+    }
+    .theme-dark .search-bar { background: #353542; }
+    .theme-green .search-bar { background: #d8f3dc; }
+    .theme-blue .search-bar { background: #e3f0ff; }
+    .theme-purple .search-bar { background: #e5dbff; }
+
+    .gcse-searchresults-only iframe {
+      width: 100% !important;
+      min-height: 500px;
+      border: none;
+    }
+  </style>
+</head>
+<body class="theme-light">
+
+  <!-- Customize button -->
+  <div class="position-absolute top-0 end-0 p-3">
+    <button class="btn btn-outline-secondary rounded-pill" id="customizeBtn">Customize</button>
+  </div>
+
+  <main class="container py-5 d-flex flex-column align-items-center">
+    <!-- Logo -->
+    <div class="nebula-logo">Nebula</div>
+
+    <!-- Search bar -->
+    <form id="searchForm" class="search-bar d-flex w-100 shadow-sm mb-4" style="max-width: 620px;">
+      <input type="text" id="searchBox" class="form-control border-0 bg-transparent" placeholder="Search the cosmos..." autocomplete="off">
+    </form>
+
+     <script async src="https://cse.google.com/cse.js?cx=006175b74c0bb44be">
+</script>
+<div class="gcse-searchresults-only"></div>
+
+  <!-- Theme Modal -->
+  <div class="modal fade" id="themeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <h5 class="mb-3">Choose a theme</h5>
+        <div class="d-flex gap-3 flex-wrap justify-content-center mb-3">
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="light" style="background:#f8fafc;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="dark" style="background:#232129;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="green" style="background:#2d6a4f;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="blue" style="background:#2a4d8d;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="purple" style="background:#a084ca;"></div>
+        </div>
+        <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Theme logic
+    const themeNames = ['light','dark','green','blue','purple'];
+    function setTheme(theme){
+      theme = themeNames.includes(theme) ? theme : 'light';
+      document.body.className = 'theme-'+theme;
+      localStorage.setItem('nebulaTheme', theme);
+    }
+    function getTheme(){ return localStorage.getItem('nebulaTheme') || 'light'; }
+    setTheme(getTheme());
+
+    document.querySelectorAll('.theme-swatch').forEach(swatch=>{
+      swatch.addEventListener('click',()=>setTheme(swatch.dataset.theme));
+    });
+    document.getElementById('customizeBtn').addEventListener('click',()=>{
+      new bootstrap.Modal(document.getElementById('themeModal')).show();
+    });
+
+    // Search
+    document.getElementById("searchForm").addEventListener("submit", e=>{
+      e.preventDefault();
+      const query=document.getElementById("searchBox").value.trim();
+      if(query) window.location.href=`search.html?q=${encodeURIComponent(query)}`;
+    });
+
+    // Auto search on load
+    const urlParams=new URLSearchParams(window.location.search);
+    const q=urlParams.get("q")||"";
+    document.getElementById("searchBox").value=q;
+    window.onload=()=>{
+      if(q && window.google && window.google.search && window.google.search.cse){
+        google.search.cse.element.getElement('searchresults-only0').execute(q);
+      }
+    };
+  </script>
+</body>
+</html>

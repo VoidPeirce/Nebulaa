@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nebula – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --color-bg-light: #f8fafc;
+      --color-bg-dark: #232129;
+      --color-bg-green: #131e15;
+      --color-bg-blue: #17233a;
+      --color-bg-purple: #2c2537;
+
+      --color-search-light: #fff;
+      --color-search-dark: #353542;
+      --color-search-green: #d8f3dc;
+      --color-search-blue: #e3f0ff;
+      --color-search-purple: #e5dbff;
+
+      --color-logo-light: #333;
+      --color-logo-dark: #cfcfcf;
+      --color-logo-green: #2d6a4f;
+      --color-logo-blue: #2a4d8d;
+      --color-logo-purple: #a084ca;
+
+      --body-font: 'Segoe UI', 'Inter', 'Arial', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--body-font);
+      transition: background 0.2s;
+    }
+
+    /* Themes */
+    .theme-light { background: var(--color-bg-light); color: #000; }
+    .theme-dark { background: var(--color-bg-dark); color: #fff; }
+    .theme-green { background: var(--color-bg-green); color: #fff; }
+    .theme-blue { background: var(--color-bg-blue); color: #fff; }
+    .theme-purple { background: var(--color-bg-purple); color: #fff; }
+
+    /* Logo */
+    .nebula-logo {
+      font-size: 4rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      transition: color 0.2s;
+    }
+    .theme-light .nebula-logo { color: var(--color-logo-light); }
+    .theme-dark .nebula-logo { color: var(--color-logo-dark); }
+    .theme-green .nebula-logo { color: var(--color-logo-green); }
+    .theme-blue .nebula-logo { color: var(--color-logo-blue); }
+    .theme-purple .nebula-logo { color: var(--color-logo-purple); }
+
+    /* Search bar */
+    .search-bar {
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-search-light);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .theme-dark .search-bar { background: var(--color-search-dark); }
+    .theme-green .search-bar { background: var(--color-search-green); }
+    .theme-blue .search-bar { background: var(--color-search-blue); }
+    .theme-purple .search-bar { background: var(--color-search-purple); }
+
+    /* Trending icons */
+    .trending-icon {
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, filter 0.2s;
+      filter: grayscale(40%);
+    }
+    .trending-icon:hover { transform: scale(1.1); filter: none; }
+    .trending-icon img {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      margin-bottom: 0.5rem;
+      object-fit: cover;
+    }
+    .trending-label { font-size: 0.9rem; opacity: 0.85; }
+  </style>
+</head>
+<body class="theme-light">
+
+  <!-- Customize button -->
+  <div class="position-absolute top-0 end-0 p-3">
+    <button class="btn btn-outline-secondary rounded-pill" id="customizeBtn">Customize</button>
+  </div>
+
+  <main class="container d-flex flex-column align-items-center justify-content-center text-center" style="min-height:90vh;">
+    <!-- Logo -->
+    <div class="nebula-logo">Nebula</div>
+
+    <!-- Search bar -->
+    <form id="searchForm" class="search-bar d-flex w-100 mb-4" style="max-width:620px;">
+      <input type="text" id="searchBox" class="form-control border-0 bg-transparent" placeholder="Search anything..." autocomplete="off">
+    </form>
+
+    <!-- Trending row -->
+    <div class="row g-4 justify-content-center">
+      <div class="col-4 col-sm-3 col-md-2">
+        <a href="https://youtube.com" target="_blank" class="d-flex flex-column align-items-center trending-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube">
+          <div class="trending-label">YouTube</div>
+        </a>
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <a href="https://google.com" target="_blank" class="d-flex flex-column align-items-center trending-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+          <div class="trending-label">Google</div>
+        </a>
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <a href="https://facebook.com" target="_blank" class="d-flex flex-column align-items-center trending-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+          <div class="trending-label">Facebook</div>
+        </a>
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <a href="https://instagram.com" target="_blank" class="d-flex flex-column align-items-center trending-icon">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+          <div class="trending-label">Instagram</div>
+        </a>
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <a href="https://github.com" target="_blank" class="d-flex flex-column align-items-center trending-icon">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+          <div class="trending-label">GitHub</div>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Theme modal -->
+  <div class="modal fade" id="themeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <h5 class="mb-3">Choose a theme</h5>
+        <div class="d-flex gap-3 flex-wrap justify-content-center mb-3">
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="light" style="background:#f8fafc;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="dark" style="background:#232129;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="green" style="background:#2d6a4f;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="blue" style="background:#2a4d8d;"></div>
+          <div class="rounded-circle p-3 border theme-swatch" data-theme="purple" style="background:#a084ca;"></div>
+        </div>
+        <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Theme
+    const themeNames = ['light','dark','green','blue','purple'];
+    function setTheme(theme){
+      theme = themeNames.includes(theme) ? theme : 'light';
+      document.body.className = 'theme-'+theme;
+      localStorage.setItem('nebulaTheme', theme);
+    }
+    function getTheme(){ return localStorage.getItem('nebulaTheme') || 'light'; }
+    setTheme(getTheme());
+
+    document.querySelectorAll('.theme-swatch').forEach(swatch=>{
+      swatch.addEventListener('click',()=>setTheme(swatch.dataset.theme));
+    });
+    document.getElementById('customizeBtn').addEventListener('click',()=>{
+      new bootstrap.Modal(document.getElementById('themeModal')).show();
+    });
+
+    // Search redirect
+    document.getElementById("searchForm").addEventListener("submit", e=>{
+      e.preventDefault();
+      const query=document.getElementById("searchBox").value.trim();
+      if(query) window.location.href=`search.html?q=${encodeURIComponent(query)}`;
+    });
+  </script>
+</body>
+</html>
